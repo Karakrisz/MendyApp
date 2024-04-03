@@ -21,12 +21,12 @@
         />
       </div>
       <ul class="menu d-flex position-relative" id="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About us</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Chaj Café</a></li>
-        <li><a href="#">Events</a></li>
-        <li><a href="#">Shop</a></li>
+        <li><NuxtLink to="/">Home</NuxtLink></li>
+        <li><NuxtLink href="#">About us</NuxtLink></li>
+        <li><NuxtLink href="#">Gallery</NuxtLink></li>
+        <li><NuxtLink href="#">Chaj Café</NuxtLink></li>
+        <li><NuxtLink href="#">Events</NuxtLink></li>
+        <li><NuxtLink href="#">Shop</NuxtLink></li>
       </ul>
     </nav>
   </header>

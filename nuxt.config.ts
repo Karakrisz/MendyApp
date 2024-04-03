@@ -1,11 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  modules: ['@nuxt/ui', '@nuxt/image'],
   devtools: { enabled: true },
+  image: { domains: ['http://127.0.0.1:8000'] },
   css: ['~/assets/css/app.css'],
-
   app: {
     head: {
-      title: 'Biztos Alkuszom',
+      title: 'Chaj gallery & Cafe ח״י - גלריה ובית קפה כשר ',
       htmlAttrs: {
         lang: 'hu',
       },
@@ -22,6 +23,7 @@ export default defineNuxtConfig({
             font-src 'self' https: data:;
             style-src 'self' https: 'unsafe-inline';
             script-src 'self' https: 'unsafe-inline' 'unsafe-eval';
+            connect-src 'self' https: http: http://127.0.0.1:8000/json-posts; 
           `,
         },
       ],
@@ -36,6 +38,4 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  modules: ["@nuxt/image"]
 })

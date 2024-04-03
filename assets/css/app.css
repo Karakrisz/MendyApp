@@ -107,13 +107,14 @@ header,
 }
 
 .splide__track,
-.menu {
+.menu,
+.carousel {
   z-index: 100;
 }
 
 .menu {
   list-style: none;
-  background-color: #e2d8a8;
+
   flex-wrap: wrap;
   align-items: center;
   padding-left: 3.5em;
@@ -129,7 +130,8 @@ header,
 }
 
 .menu,
-.bar {
+.bar,
+.dark\:bg-primary-400:is(.dark *) {
   background-color: #e2d8a8;
 }
 
@@ -175,15 +177,6 @@ header,
 /********************  Header formating end **********************/
 
 /********************  Slider formating start **********************/
-
-.splide__arrow,
-.splide__pagination {
-  z-index: 105;
-}
-
-.splide__slide img {
-  width: 100%;
-}
 
 /********************  Slider formating end **********************/
 
@@ -281,10 +274,11 @@ a,
 }
 
 .page-link__img {
-  width: 13px;
+  max-width: 13px;
   height: 13px;
   margin-left: 5px;
   top: 1px;
+  display: unset;
 }
 
 /********************  Events formating end **********************/

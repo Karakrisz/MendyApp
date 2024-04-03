@@ -74,6 +74,31 @@ function _expandFromEnv(value) {
 const inlineAppConfig = {
   "nuxt": {
     "buildId": "dev"
+  },
+  "ui": {
+    "primary": "green",
+    "gray": "cool",
+    "colors": [
+      "red",
+      "orange",
+      "amber",
+      "yellow",
+      "lime",
+      "green",
+      "emerald",
+      "teal",
+      "cyan",
+      "sky",
+      "blue",
+      "indigo",
+      "violet",
+      "purple",
+      "fuchsia",
+      "pink",
+      "rose",
+      "primary"
+    ],
+    "strategy": "merge"
   }
 };
 
@@ -115,7 +140,9 @@ const _inlineRuntimeConfig = {
       ]
     },
     "http": {
-      "domains": []
+      "domains": [
+        "127.0.0.1:8000"
+      ]
     }
   }
 };
@@ -615,7 +642,7 @@ function getRouteRulesForPath(path) {
   return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
-const script = `
+const script$1 = `
 if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
   Object.defineProperty(window, '__NUXT_DEVTOOLS_TIME_METRIC__', {
     value: {},
@@ -628,7 +655,7 @@ window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 
 const _JSc9tWCILk = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
-    htmlContext.head.push(`<script>${script}<\/script>`);
+    htmlContext.head.push(`<script>${script$1}<\/script>`);
   });
 });
 
@@ -696,9 +723,18 @@ function onConsoleLog(callback) {
   consola.wrapConsole();
 }
 
+const script = "\"use strict\";(()=>{const a=window,e=document.documentElement,c=window.localStorage,d=[\"dark\",\"light\"],n=c&&c.getItem&&c.getItem(\"nuxt-color-mode\")||\"system\";let l=n===\"system\"?f():n;const i=e.getAttribute(\"data-color-mode-forced\");i&&(l=i),r(l),a[\"__NUXT_COLOR_MODE__\"]={preference:n,value:l,getColorScheme:f,addColorScheme:r,removeColorScheme:u};function r(o){const t=\"\"+o+\"\",s=\"\";e.classList?e.classList.add(t):e.className+=\" \"+t,s&&e.setAttribute(\"data-\"+s,o)}function u(o){const t=\"\"+o+\"\",s=\"\";e.classList?e.classList.remove(t):e.className=e.className.replace(new RegExp(t,\"g\"),\"\"),s&&e.removeAttribute(\"data-\"+s)}function m(o){return a.matchMedia(\"(prefers-color-scheme\"+o+\")\")}function f(){if(a.matchMedia&&m(\"\").media!==\"not all\"){for(const o of d)if(m(\":\"+o).matches)return o}return\"light\"}})();\n";
+
+const _XjnT0A8N7H = (function(nitro) {
+  nitro.hooks.hook("render:html", (htmlContext) => {
+    htmlContext.head.push(`<script>${script}<\/script>`);
+  });
+});
+
 const plugins = [
   _JSc9tWCILk,
-_2MnQ1sSbtz
+_2MnQ1sSbtz,
+_XjnT0A8N7H
 ];
 
 const scheduledTasks = false;
@@ -1129,7 +1165,7 @@ function createServerHead(options = {}) {
 
 const unheadPlugins = [];
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"},{"http-equiv":"Content-Security-Policy","content":"\n            default-src 'self' https: data:;\n            img-src 'self' https: http: data:;\n            font-src 'self' https: data:;\n            style-src 'self' https: 'unsafe-inline';\n            script-src 'self' https: 'unsafe-inline' 'unsafe-eval';\n          "}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"},{"rel":"preconnect","href":"https://fonts.googleapis.com"},{"rel":"preconnect","href":"https://fonts.gstatic.com"},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"}],"style":[],"script":[],"noscript":[],"title":"Biztos Alkuszom","htmlAttrs":{"lang":"hu"}};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"},{"http-equiv":"Content-Security-Policy","content":"\n            default-src 'self' https: data:;\n            img-src 'self' https: http: data:;\n            font-src 'self' https: data:;\n            style-src 'self' https: 'unsafe-inline';\n            script-src 'self' https: 'unsafe-inline' 'unsafe-eval';\n            connect-src 'self' https: http: http://127.0.0.1:8000/json-posts; \n          "}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"},{"rel":"preconnect","href":"https://fonts.googleapis.com"},{"rel":"preconnect","href":"https://fonts.gstatic.com"},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"}],"style":[],"script":[],"noscript":[],"title":"Chaj gallery & Cafe ח״י - גלריה ובית קפה כשר ","htmlAttrs":{"lang":"hu"}};
 
 const appRootId = "__nuxt";
 

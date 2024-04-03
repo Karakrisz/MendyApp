@@ -1,44 +1,43 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+
+const { data: itemsPost } = await useFetch('http://127.0.0.1:8000/json-posts')
+
 const items = [
-  'https://picsum.photos/1920/1080?random=1',
-  'https://picsum.photos/1920/1080?random=2',
-  'https://picsum.photos/1920/1080?random=3',
-  'https://picsum.photos/1920/1080?random=4',
-  'https://picsum.photos/1920/1080?random=5',
-  'https://picsum.photos/1920/1080?random=6',
+  '/img/slider/slider.png',
+  '/img/slider/slider-2.png',
+  '/img/slider/slider-3.png',
 ]
 
-console.log(items)
+const carouselRef = ref(null)
+
+onMounted(() => {
+  setInterval(() => {
+    if (!carouselRef.value) return
+
+    if (carouselRef.value.page === carouselRef.value.pages) {
+      return carouselRef.value.select(0)
+    }
+
+    carouselRef.value.next()
+  }, 5000)
+})
 </script>
 
 <template>
   <!-- First slider codes -->
-  <section class="splide">
-    <div class="splide__track">
-      <ul class="splide__list">
-        <li class="splide__slide">
-          <NuxtImg
-            class="splide__slide__img"
-            src="/img/slider/slider.png"
-            alt="chajcafe"
-          />
-        </li>
-        <li class="splide__slide">
-          <NuxtImg
-            class="splide__slide__img"
-            src="/img/slider/slider.png"
-            alt="chajcafe"
-          />
-        </li>
-        <li class="splide__slide">
-          <NuxtImg
-            class="splide__slide__img"
-            src="/img/slider/slider.png"
-            alt="chajcafe"
-          />
-        </li>
-      </ul>
-    </div>
+  <section class="carousel position-relative">
+    <UCarousel
+      ref="carouselRef"
+      v-slot="{ item }"
+      :items="items"
+      :ui="{ item: 'basis-full' }"
+      class="rounded-lg overflow-hidden"
+      indicators
+      arrows
+    >
+      <NuxtImg :src="item" class="w-full" draggable="false" />
+    </UCarousel>
   </section>
 
   <section class="events">
@@ -46,27 +45,27 @@ console.log(items)
     <div class="events__content d-flex">
       <div class="events__content__box">
         <div class="events__content__box--margin">
-          <NuxtImg class="events__content__box__img" src="chajcafe" />
+          <img class="events__content__box__img" src="" alt="" />
           <div class="events__content__box__text-box">
-            <h2 class="events__content__box__h2"></h2>
-            <p class="events__content__box__p"></p>
-            <a class="events__content__box__link" href="#"
-              ><NuxtImg src="/img/events.svg" alt="chajcafe"
-            /></a>
+            <h2 class="events__content__box__h2">cím</h2>
+            <p class="events__content__box__p">valami</p>
+            <NuxtLink class="events__content__box__link" href="#">
+              <NuxtImg src="/img/events.svg" alt="chajcafe" />
+            </NuxtLink>
           </div>
         </div>
       </div>
     </div>
 
     <div class="events__link-box text-center">
-      <a class="events__link-box__link page-link" href="#"
+      <NuxtLink class="events__link-box__link page-link" href="#"
         >All Events
         <NuxtImg
           class="page-link__img position-relative"
           src="/img/link.svg"
           alt="chajcafe"
         />
-      </a>
+      </NuxtLink>
     </div>
   </section>
 
@@ -159,16 +158,29 @@ console.log(items)
   <section class="welcome-shop">
     <h2 class="welcome-shop__h2 text-center">Shop</h2>
     <div class="welcome-shop__content d-flex">
-      <div class="welcome-shop__content__box">
+      <div
+        v-for="post in itemsPost"
+        :key="post.id"
+        class="welcome-shop__content__box"
+      >
         <div class="welcome-shop__content__box--margin">
-          <NuxtImg class="welcome-shop__content__box__img" src="chajcafe" />
+          <img
+            class="welcome-shop__content__box__img"
+            :src="`http://127.0.0.1:8000/storage/${post.image}`"
+          />
           <div class="welcome-shop__content__box__text-box">
-            <h2 class="welcome-shop__content__box__text-box__h2"></h2>
-            <p class="welcome-shop__content__box__p"></p>
-            <a class="welcome-shop__content__box__text-box__link" href="#">
-              <NuxtImg src="/img/shop.svg" alt="chajcafe" />
-            </a>
-            <h5 class="welcome-shop__content__box__text-box__h5"></h5>
+            <h2 class="welcome-shop__content__box__text-box__h2">
+              {{ post.title }}
+            </h2>
+            <ClientOnly>
+              <p class="welcome-shop__content__box__p" v-html="post.body" />
+            </ClientOnly>
+            <NuxtLink
+              class="welcome-shop__content__box__text-box__link"
+              :to="`/posts/${post.slug}`"
+            >
+              Tovább
+            </NuxtLink>
           </div>
         </div>
       </div>
