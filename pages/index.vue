@@ -43,13 +43,26 @@ onMounted(() => {
   <section class="events">
     <h1 class="events__h1 text-center">Upcoming events</h1>
     <div class="events__content d-flex">
-      <div class="events__content__box">
+      <div
+        v-for="post in itemsPost"
+        :key="post.id"
+        class="events__content__box"
+      >
         <div class="events__content__box--margin">
-          <img class="events__content__box__img" src="" alt="" />
+          <img
+            class="events__content__box__img"
+            :src="`http://127.0.0.1:8000/storage/${post.image}`"
+            alt="{{ post.title }}"
+          />
           <div class="events__content__box__text-box">
-            <h2 class="events__content__box__h2">cím</h2>
-            <p class="events__content__box__p">valami</p>
-            <NuxtLink class="events__content__box__link" href="#">
+            <h2 class="events__content__box__h2">{{ post.title }}</h2>
+            <ClientOnly>
+              <p class="events__content__box__p" v-html="post.body" />
+            </ClientOnly>
+            <NuxtLink
+              class="events__content__box__link"
+              :to="`/posts/${post.slug}`"
+            >
               <NuxtImg src="/img/events.svg" alt="chajcafe" />
             </NuxtLink>
           </div>
